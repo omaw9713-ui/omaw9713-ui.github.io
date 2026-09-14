@@ -1,55 +1,166 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday ဝင့်ဝါဦး</title>
+    <title>For ဝင့်ဝါဦး</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            background-color: #ffeaa7;
+            background-image: linear-gradient(135deg, #ffeef8 0%, #ffdee9 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 35px 25px;
-            border-radius: 20px;
+        .container {
+            background: #ffffff;
+            padding: 40px 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 118, 117, 0.15);
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            max-width: 400px;
-            width: 100%;
+            max-width: 360px;
+            width: 90%;
+            z-index: 10;
+            border: 2px solid #fff;
+            animation: popIn 0.5s ease-out;
         }
-        h1 {
-            color: #ff4757;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
-        .name {
-            font-size: 1.5rem;
-            color: #2f3542;
-            font-weight: bold;
+        .gif-box img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
             margin-bottom: 20px;
         }
-        .wish {
-            font-size: 1.1rem;
-            color: #57606f;
+        h2 {
+            font-size: 1.25rem;
+            color: #2d3436;
+            margin-bottom: 30px;
             line-height: 1.6;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff7675, #ef5777);
+            color: white;
+            box-shadow: 0 5px 15px rgba(239, 87, 119, 0.3);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 5px rgba(239, 87, 119, 0.3);
+        }
+        .heart {
+            position: absolute;
+            color: #ff7675;
+            font-size: 20px;
+            animation: fall linear infinite;
+            top: -20px;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+        .wish-text {
+            font-size: 1.1rem;
+            color: #d63031;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .wish-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ef5777;
+            margin-bottom: 15px;
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>🎂 Happy Birthday!</h1>
-        <div class="name">ဝင့်ဝါဦး</div>
-        <p class="wish">အရူးမရေ... မွေးနေ့မှစပြီး လင်လိုချင်ရင်လင်ရ၊ ကလေးလိုချင်ကလေးရ၊ စိတ်ချမ်းသာကိုယ်ကျန်းမာပါစေ။ 💖</p>
+    <div class="container" id="card">
+        <div class="gif-box">
+            <img id="gif" src="https://tenor.com" alt="bear">
+        </div>
+        <h2 id="question">ဟဲ့ဘာလဲသိချင်နေပြီလား သိချင်နှိပ်ကြည့် 😉</h2>
+        <div class="btn-group" id="buttons">
+            <button id="nextBtn" onclick="nextStep()">နှိပ်ကြည့်မယ်</button>
+        </div>
     </div>
 
+    <script>
+        let currentStep = 1;
+
+        const steps = {
+            2: {
+                question: "မပြောပြပါဘူး ဟဲဟဲစတာ ထပ်နှိပ်ကြည့် 😜",
+                gif: "https://tenor.com",
+                btnText: "ထပ်နှိပ်မယ်"
+            },
+            3: {
+                question: "ရင်ခုန်နေပြီလား ထပ်နှိပ် 💓",
+                gif: "https://tenor.com",
+                btnText: "ထပ်နှိပ်မယ်"
+            },
+            4: {
+                question: "ဘာမှမဟုတ်တော့ဘူး သိချင်ရင်လဲသဘောထပ်နှိပ်ကြည့် 🙄",
+                gif: "https://tenor.com",
+                btnText: "ကဲ နှိပ်ပြီ"
+            }
+        };
+
+        function nextStep() {
+            currentStep++;
+            
+            if (steps[currentStep]) {
+                document.getElementById('question').innerText = steps[currentStep].question;
+                document.getElementById('gif').src = steps[currentStep].gif;
+                document.getElementById('nextBtn').innerText = steps[currentStep].btnText;
+            } else {
+                document.getElementById('gif').src = "https://tenor.com";
+                document.getElementById('gif').style.width = "160px";
+                document.getElementById('gif').style.height = "160px";
+                
+                document.getElementById('question').innerHTML = `
+                    <div class="wish-text">
+                        <span class="wish-title">🎂 Happy Birthday!</span>
+                        <strong style="font-size: 1.3rem; color: #2d3436;">ဝင့်ဝါဦး</strong><br><br>
+                        ဟဲဟဲအရူးမရေ မွေးနေ့မှစလို့ လင်မြန်မြန်ရပါစေ playတဲ့သူတွေနဲ့ဝေးပါစေ ကျန်ရစ်အဖြစ်ကနေလွတ်မြောက်ပါစေ စိတ်ချမ်းသာကိုယ်ကျန်းမာပါစေကောင်မလေးရေ 💖
+                    </div>
+                `;
+                document.getElementById('buttons').style.display = 'none';
+                startHearts();
+            }
+        }
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = ['💖','✨','🎈','🌸','❤️','🎉'][Math.floor(Math.random() * 6)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 5000);
+            }, 250);
+        }
+    </script>
 </body>
 </html>
+
