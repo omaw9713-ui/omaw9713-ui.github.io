@@ -33,15 +33,16 @@
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+        /* အီမိုဂျီလေးများ အပေါ်အောက် ငြင်သာစွာ လှုပ်ရှားနေစေမည့် Animation */
         .gif-box {
             font-size: 80px;
             margin-bottom: 20px;
             display: inline-block;
-            animation: float 3s ease-in-out infinite;
+            animation: floatAnim 3s ease-in-out infinite;
         }
-        @keyframes float {
+        @keyframes floatAnim {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
         }
         h2 {
             font-size: 1.25rem;
@@ -69,6 +70,7 @@
             transform: scale(0.95);
             box-shadow: 0 2px 5px rgba(108, 92, 231, 0.3);
         }
+        /* နောက်ဆုံးမွေးနေ့မှာ ကြွေကျလာမည့် နှလုံးသားမိုးစက်များ */
         .heart {
             position: absolute;
             color: #6c5ce7;
@@ -100,6 +102,7 @@
 <body>
 
     <div class="container" id="card">
+        <!-- အဆင့် ၁ မှာ လှုပ်လှုပ်ရှားရှား ဖြစ်နေမည့် နှုတ်ဆက်အီမိုဂျီ -->
         <div class="gif-box" id="gifIcon">🙋‍♂️</div>
         <h2 id="question">ဟဲဟဲ မင်္ဂလာပါအကိုတော် 🙏</h2>
         <div class="btn-group" id="buttons">
@@ -110,7 +113,7 @@
     <script>
         let currentStep = 1;
 
-        // ဖုန်း browser တွေမှာ ပိတ်ဆို့မှုမရှိဘဲ ၁၀၀% ပုံပေါ်စေမယ့် စတိုင်ကျလှပတဲ့ အီမိုဂျီစတစ်ကာများ
+        // အဆင့်တိုင်းမှာ လှုပ်ရှားနေမည့် အီမိုဂျီစနစ်
         const steps = {
             2: {
                 question: "ဘာလဲသိချင်နေလား 😜",
@@ -157,6 +160,7 @@
                 document.getElementById('gifIcon').innerText = steps[currentStep].icon;
                 document.getElementById('nextBtn').innerText = steps[currentStep].btnText;
             } else {
+                // မွေးနေ့ရှင် ကိုကြီးအတွက် အီမိုဂျီ ကိတ်မုန့်ပုံလေးကိုလည်း အလှလှုပ်ရှားအောင် လုပ်ထားပါတယ်
                 document.getElementById('gifIcon').innerText = "🎂🎉";
                 document.getElementById('gifIcon').style.fontSize = "70px";
                 
@@ -165,12 +169,12 @@
                         <span class="wish-title">🎂 Happy Birthday!</span>
                         <center><strong style="font-size: 1.25rem; color: #6c5ce7;">ကိုအောင်ကျော်လင်း</strong></center><br>
                         ကိုကြီးရဲ့ မွေးနေ့ပွဲလေး မကျင်းပပေးလိုက်ရပေမဲ့ ဒီစာသားလေးက ကျွန်မရဲ့ အကိုတော်အတွက် ခွန်အားဖြစ်ဖို့ ရည်ရွယ်ပါတယ်။<br><br>
-                        စိတ်ဓာတ်တွေလည်း မကျပါနဲ့၊ နှမတော်လည်း ရှိပါတယ်။ အိမ်အတွက်ရော ဘဝအတွက်ပါ အတူတူ ကြိုးစားရုန်းကန်ကြတာပေါ့။ အခက်အခဲရှိလာရင် တစ်ယောက်တည်း ရင်ဆိုင်မဖြေရှင်းပါနဲ့၊ စိတ်ပင်ပန်းလာရင် ပြောပြပါ။ တစ်ယောက်နဲ့တစ်ယောက် အားကိုးရာ မောင်နှမတွေပဲလေ။<br><br>
+                        စိတ်ဓာတ်တွေလည်း မကျပါနဲ့၊ နှမတော်လည်း ရှိပါတယ်။ အိမ်အတွက်ရော ဘဝအတွက်ပါ အတူတူ ကြိုးစားရုန်းကန်ကြတာပေါ့။ အခက်αλλဲရှိလာရင် တစ်ယောက်တည်း ရင်ဆိုင်မဖြေရှင်းပါနဲ့၊ စိတ်ပင်ပန်းလာရင် ပြောပြပါ။ တစ်ယောက်နဲ့တစ်ယောက် အားကိုးရာ မောင်နှမတွေပဲလေ။<br><br>
                         အခုချိန်ကစလို့ စိတ်ချမ်းသာ၊ ကိုယ်ကျန်းမာပြီး လိုအင်ဆန္ဒများ ပြည့်ဝပါစေ။ (ဟဲဟဲ... ပြီးတော့ ကောင်မလေး ချောချောလေးလည်း အမြန်ဆုံး ရပါစေနော်!) ❤️🥳
                     </div>
                 `;
                 document.getElementById('buttons').style.display = 'none';
-                startHearts();
+                startHearts(); // နှလုံးသားမိုးရွာသွန်းပေးခြင်း
             }
         }
 
