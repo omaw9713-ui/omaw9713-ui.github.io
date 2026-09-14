@@ -33,11 +33,15 @@
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-        .gif-box img {
-            width: 140px;
-            height: 140px;
-            object-fit: contain;
+        .gif-box {
+            font-size: 80px;
             margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         h2 {
             font-size: 1.25rem;
@@ -94,9 +98,7 @@
 <body>
 
     <div class="container" id="card">
-        <div class="gif-box">
-            <img id="gif" src="https://tenor.com" alt="bear">
-        </div>
+        <div class="gif-box" id="gifIcon">🐻</div>
         <h2 id="question">ဟဲ့ဘာလဲသိချင်နေပြီလား သိချင်နှိပ်ကြည့် 😉</h2>
         <div class="btn-group" id="buttons">
             <button id="nextBtn" onclick="nextStep()">နှိပ်ကြည့်မယ်</button>
@@ -106,20 +108,21 @@
     <script>
         let currentStep = 1;
 
+        // ပုံမထွက်လာတဲ့ပြဿနာကို ဖြေရှင်းဖို့ စတစ်ကာအီမိုဂျီအလန်းစားလေးတွေနဲ့ ပြောင်းလဲထားပါတယ်
         const steps = {
             2: {
                 question: "မပြောပြပါဘူး ဟဲဟဲစတာ ထပ်နှိပ်ကြည့် 😜",
-                gif: "https://tenor.com",
+                icon: "🙈",
                 btnText: "ထပ်နှိပ်မယ်"
             },
             3: {
                 question: "ရင်ခုန်နေပြီလား ထပ်နှိပ် 💓",
-                gif: "https://tenor.com",
+                icon: "😳",
                 btnText: "ထပ်နှိပ်မယ်"
             },
             4: {
                 question: "ဘာမှမဟုတ်တော့ဘူး သိချင်ရင်လဲသဘောထပ်နှိပ်ကြည့် 🙄",
-                gif: "https://tenor.com",
+                icon: "😏",
                 btnText: "ကဲ နှိပ်ပြီ"
             }
         };
@@ -129,12 +132,11 @@
             
             if (steps[currentStep]) {
                 document.getElementById('question').innerText = steps[currentStep].question;
-                document.getElementById('gif').src = steps[currentStep].gif;
+                document.getElementById('gifIcon').innerText = steps[currentStep].icon;
                 document.getElementById('nextBtn').innerText = steps[currentStep].btnText;
             } else {
-                document.getElementById('gif').src = "https://tenor.com";
-                document.getElementById('gif').style.width = "160px";
-                document.getElementById('gif').style.height = "160px";
+                document.getElementById('gifIcon').innerText = "🎂🎉";
+                document.getElementById('gifIcon').style.fontSize = "70px";
                 
                 document.getElementById('question').innerHTML = `
                     <div class="wish-text">
@@ -163,4 +165,3 @@
     </script>
 </body>
 </html>
-
