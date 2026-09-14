@@ -33,22 +33,27 @@
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-        /* အီမိုဂျီလေးများ အပေါ်အောက် ငြင်သာစွာ လှုပ်ရှားနေစေမည့် Animation */
+        /* အီမိုဂျီများကို တကယ့်ကို အသက်ဝင်လှုပ်ရှားစေမည့် မြောက်တက်ခုန်ဆွ Animation */
         .gif-box {
-            font-size: 80px;
+            font-size: 85px;
             margin-bottom: 20px;
             display: inline-block;
-            animation: floatAnim 3s ease-in-out infinite;
+            animation: jumpAndFloat 2.5s ease-in-out infinite;
         }
-        @keyframes floatAnim {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+        @keyframes jumpAndFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.08) rotate(5deg); }
         }
         h2 {
             font-size: 1.25rem;
             color: #2d3436;
             margin-bottom: 30px;
             line-height: 1.6;
+            animation: fadeInText 0.4s ease-in-out;
+        }
+        @keyframes fadeInText {
+            0% { opacity: 0; transform: translateY(5px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         .btn-group {
             display: flex;
@@ -70,7 +75,7 @@
             transform: scale(0.95);
             box-shadow: 0 2px 5px rgba(108, 92, 231, 0.3);
         }
-        /* နောက်ဆုံးမွေးနေ့မှာ ကြွေကျလာမည့် နှလုံးသားမိုးစက်များ */
+        /* နောက်ဆုံးအဆင့်တွင် မျက်နှာပြင်တစ်ခုလုံး ဖြာကျလာမည့် နှလုံးသားနှင့် ပူဖောင်းမိုးစက်များ */
         .heart {
             position: absolute;
             color: #6c5ce7;
@@ -88,9 +93,10 @@
             line-height: 1.7;
             text-align: justify;
             text-justify: inter-word;
+            animation: popIn 0.6s ease-out;
         }
         .wish-title {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             font-weight: bold;
             color: #6c5ce7;
             margin-bottom: 15px;
@@ -102,9 +108,9 @@
 <body>
 
     <div class="container" id="card">
-        <!-- အဆင့် ၁ - ဟဲဟဲ မင်္ဂလာပါအကိုတော် -->
+        <!-- အဆင့် ၁ စတင်ခြင်း -->
         <div class="gif-box" id="gifIcon">🙋‍♂️</div>
-        <h2 id="question">ဟဲဟဲ မင်္ဂလာပါအကိုတော် 🙏</h2>
+        <h2 id="question">ဟဲ့ဟဲ့ မင်္ဂလာပါအကိုတော်</h2>
         <div class="btn-group" id="buttons">
             <button id="nextBtn" onclick="nextStep()">နှိပ်ကြည့်မယ်</button>
         </div>
@@ -113,41 +119,41 @@
     <script>
         let currentStep = 1;
 
-        // သင်ပေးထားသည့် စာသားအစီအစဉ်အတိုင်း ကွက်တိပြင်ဆင်ထားသော အဆင့်ဆင့်စနစ်
+        // သင်ပေးပို့ထားသည့် စာသားအစီအစဉ်အတိုင်း တိတိကျကျ စီစဉ်ထားသော database
         const steps = {
             2: {
-                question: "ဘာလဲသိချင်နေလား 🤔",
-                icon: "😜",
+                question: "ဘာလဲသိချင်နေလား",
+                icon: "🤔",
                 btnText: "သိချင်တာပေါ့"
             },
             3: {
-                question: "ဆန္ဒမစောနဲ့လေ ✋",
-                icon: "🤫",
+                question: "ဆန္ဒမစောနဲ့လေ",
+                icon: "✋",
                 btnText: "ဟုတ်ကဲ့"
             },
             4: {
-                question: "သိရမှာပေါ့ ✨",
-                icon: "😎",
+                question: "သိရမှာပေါ့",
+                icon: "✨",
                 btnText: "ဘယ်တော့လဲ"
             },
             5: {
-                question: "ဖြည်းဖြည်းပေါ့ဘာတွေလောနေတာလဲ 🐢",
-                icon: "🤭",
+                question: "ဖြည်းဖြည်းပေါ့ဘာတွေလောနေတာလဲ",
+                icon: "🐢",
                 btnText: "မလောတော့ပါဘူး"
             },
             6: {
-                question: "အင်းဒီထိနှိပ်လိုက်ပြီဆိုတော့တော်တော်သိချင်နေတာပေါ့ 🧐",
-                icon: "😏",
+                question: "အင်းဒီထိနှိပ်လိုက်ပြီဆိုတော့တော်တော်သိချင်နေတာပေါ့",
+                icon: "🧐",
                 btnText: "အင်း သိချင်တယ်"
             },
             7: {
-                question: "မပြောပြဘူး 🤷‍♂️",
-                icon: "😝",
+                question: "မပြောပြဘူး",
+                icon: "🤷‍♂️",
                 btnText: "ဟာ ဗျာ"
             },
             8: {
-                question: "ဟဲဟဲစတာပါ ဒီတစ်ခါပဲထပ်နှိပ် 🤝",
-                icon: "😁",
+                question: "ဟဲဟဲစတာပါ ဒီတစ်ခါပဲထပ်နှိပ်",
+                icon: "🤝",
                 btnText: "နောက်ဆုံးပဲနော်"
             }
         };
@@ -155,16 +161,22 @@
         function nextStep() {
             currentStep++;
             
+            // စာသားပြောင်းလဲတိုင်း သိသာထင်ရှားစေရန် စာသား animation ကို ပြန်နှိုးခြင်း
+            const qElem = document.getElementById('question');
+            qElem.style.animation = 'none';
+            qElem.offsetHeight; /* trigger reflow */
+            qElem.style.animation = null;
+
             if (steps[currentStep]) {
-                document.getElementById('question').innerHTML = steps[currentStep].question;
+                qElem.innerText = steps[currentStep].question;
                 document.getElementById('gifIcon').innerText = steps[currentStep].icon;
                 document.getElementById('nextBtn').innerText = steps[currentStep].btnText;
             } else {
-                // နောက်ဆုံးအဆင့် - အကိုတော့်အတွက် မွေးနေ့ဆုတောင်းစာသားအပြည့်အစုံ
+                // နောက်ဆုံးအဆင့် - ကိုအောင်ကျော်လင်းအတွက် မွေးနေ့ဆုတောင်းစာသားအပြည့်အစုံ
                 document.getElementById('gifIcon').innerText = "🎂🎉";
-                document.getElementById('gifIcon').style.fontSize = "70px";
+                document.getElementById('gifIcon').style.fontSize = "75px";
                 
-                document.getElementById('question').innerHTML = `
+                qElem.innerHTML = `
                     <div class="wish-text">
                         <span class="wish-title">🎂 Happy Birthday!</span>
                         <center><strong style="font-size: 1.25rem; color: #6c5ce7;">ကိုအောင်ကျော်လင်း</strong></center><br>
@@ -174,7 +186,7 @@
                     </div>
                 `;
                 document.getElementById('buttons').style.display = 'none';
-                startHearts(); // နှလုံးသားမိုးရွာသွန်းပေးခြင်း
+                startHearts(); // မျက်နှာပြင်တစ်ခုလုံး မိုးရွာသွန်းပေးခြင်း
             }
         }
 
@@ -188,9 +200,8 @@
                 heart.style.fontSize = Math.random() * 15 + 15 + 'px';
                 document.body.appendChild(heart);
                 setTimeout(() => { heart.remove(); }, 5000);
-            }, 250);
+            }, 200);
         }
     </script>
 </body>
 </html>
-
