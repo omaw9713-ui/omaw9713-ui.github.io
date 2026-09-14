@@ -33,11 +33,15 @@
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-        .gif-box img {
-            width: 140px;
-            height: 140px;
-            object-fit: contain;
+        .gif-box {
+            font-size: 80px;
             margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         h2 {
             font-size: 1.25rem;
@@ -96,10 +100,7 @@
 <body>
 
     <div class="container" id="card">
-        <div class="gif-box">
-            <!-- အဆင့် ၁ - နှုတ်ဆက်နေသည့် ဝက်ဝံရုပ်ပုံ -->
-            <img id="gif" src="https://giphy.com" alt="sticker">
-        </div>
+        <div class="gif-box" id="gifIcon">🙋‍♂️</div>
         <h2 id="question">ဟဲဟဲ မင်္ဂလာပါအကိုတော် 🙏</h2>
         <div class="btn-group" id="buttons">
             <button id="nextBtn" onclick="nextStep()">နှိပ်ကြည့်မယ်</button>
@@ -109,41 +110,41 @@
     <script>
         let currentStep = 1;
 
-        // တစ်ဆင့်ချင်းစီအလိုက် ပြောင်းလဲမည့် မေးခွန်းများနှင့် လှုပ်ရှားနေသော Sticker GIF ပုံများ
+        // ဖုန်း browser တွေမှာ ပိတ်ဆို့မှုမရှိဘဲ ၁၀၀% ပုံပေါ်စေမယ့် စတိုင်ကျလှပတဲ့ အီမိုဂျီစတစ်ကာများ
         const steps = {
             2: {
                 question: "ဘာလဲသိချင်နေလား 😜",
-                gif: "https://giphy.com", // စဉ်းစားနေသည့်ပုံ
+                icon: "🤔",
                 btnText: "သိချင်တာပေါ့"
             },
             3: {
                 question: "ဆန္ဒမစောနဲ့လေ 🤫",
-                gif: "https://giphy.com", // တားမြစ်နေသည့်ပုံ
+                icon: "✋",
                 btnText: "ဟုတ်ကဲ့"
             },
             4: {
                 question: "သိရမှာပေါ့ 😎",
-                gif: "https://giphy.com", // လက်မထောင်ပြသည့်ပုံ
+                icon: "✨",
                 btnText: "ဘယ်တော့လဲ"
             },
             5: {
                 question: "ဖြည်းဖြည်းပေါ့ဘာတွေလောနေတာလဲ 🤭",
-                gif: "https://giphy.com", // လိပ်ကလေးလို ဖြည်းဖြည်းပုံ
+                icon: "🐢",
                 btnText: "မလောတော့ပါဘူး"
             },
             6: {
                 question: "အင်းဒီထိနှိပ်လိုက်ပြီဆိုတော့တော်တော်သိချင်နေတာပေါ့ 😏",
-                gif: "https://giphy.com", // ခေါင်းညိတ်စူးစမ်းသည့်ပုံ
+                icon: "🧐",
                 btnText: "အင်း သိချင်တယ်"
             },
             7: {
                 question: "မပြောပြဘူး ဟဲဟဲ 😝",
-                gif: "https://giphy.com", // ပြောင်ပြနေသည့်ပုံ
+                icon: "🤷‍♂️",
                 btnText: "ဟာ ဗျာ"
             },
             8: {
                 question: "စတာပါ ဒီတစ်ခါပဲထပ်နှိပ် 😁",
-                gif: "https://giphy.com", // ရယ်မောနေသည့်ပုံ
+                icon: "🤝",
                 btnText: "နောက်ဆုံးပဲနော်"
             }
         };
@@ -153,13 +154,11 @@
             
             if (steps[currentStep]) {
                 document.getElementById('question').innerText = steps[currentStep].question;
-                document.getElementById('gif').src = steps[currentStep].gif;
+                document.getElementById('gifIcon').innerText = steps[currentStep].icon;
                 document.getElementById('nextBtn').innerText = steps[currentStep].btnText;
             } else {
-                // နောက်ဆုံးအဆင့် - မွေးနေ့ဆုတောင်းနှင့် ကိတ်မုန့်ပုံ
-                document.getElementById('gif').src = "https://giphy.com";
-                document.getElementById('gif').style.width = "160px";
-                document.getElementById('gif').style.height = "160px";
+                document.getElementById('gifIcon').innerText = "🎂🎉";
+                document.getElementById('gifIcon').style.fontSize = "70px";
                 
                 document.getElementById('question').innerHTML = `
                     <div class="wish-text">
@@ -189,5 +188,4 @@
         }
     </script>
 </body>
-  </html>
-  
+</html>
