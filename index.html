@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday ကိုကြီး</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #74b9ff;
+            background-image: linear-gradient(135deg, #e8f4f8 0%, #a29bfe 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            background: #ffffff;
+            padding: 40px 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.15);
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            z-index: 10;
+            border: 2px solid #fff;
+            animation: popIn 0.5s ease-out;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .gif-box img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.25rem;
+            color: #2d3436;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 5px rgba(108, 92, 231, 0.3);
+        }
+        .heart {
+            position: absolute;
+            color: #6c5ce7;
+            font-size: 20px;
+            animation: fall linear infinite;
+            top: -20px;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+        .wish-text {
+            font-size: 1.05rem;
+            color: #2d3436;
+            line-height: 1.7;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+        .wish-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #6c5ce7;
+            margin-bottom: 15px;
+            display: block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="card">
+        <div class="gif-box">
+            <!-- အဆင့် ၁ - နှုတ်ဆက်နေသည့် ဝက်ဝံရုပ်ပုံ -->
+            <img id="gif" src="https://giphy.com" alt="sticker">
+        </div>
+        <h2 id="question">ဟဲဟဲ မင်္ဂလာပါအကိုတော် 🙏</h2>
+        <div class="btn-group" id="buttons">
+            <button id="nextBtn" onclick="nextStep()">နှိပ်ကြည့်မယ်</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        // တစ်ဆင့်ချင်းစီအလိုက် ပြောင်းလဲမည့် မေးခွန်းများနှင့် လှုပ်ရှားနေသော Sticker GIF ပုံများ
+        const steps = {
+            2: {
+                question: "ဘာလဲသိချင်နေလား 😜",
+                gif: "https://giphy.com", // စဉ်းစားနေသည့်ပုံ
+                btnText: "သိချင်တာပေါ့"
+            },
+            3: {
+                question: "ဆန္ဒမစောနဲ့လေ 🤫",
+                gif: "https://giphy.com", // တားမြစ်နေသည့်ပုံ
+                btnText: "ဟုတ်ကဲ့"
+            },
+            4: {
+                question: "သိရမှာပေါ့ 😎",
+                gif: "https://giphy.com", // လက်မထောင်ပြသည့်ပုံ
+                btnText: "ဘယ်တော့လဲ"
+            },
+            5: {
+                question: "ဖြည်းဖြည်းပေါ့ဘာတွေလောနေတာလဲ 🤭",
+                gif: "https://giphy.com", // လိပ်ကလေးလို ဖြည်းဖြည်းပုံ
+                btnText: "မလောတော့ပါဘူး"
+            },
+            6: {
+                question: "အင်းဒီထိနှိပ်လိုက်ပြီဆိုတော့တော်တော်သိချင်နေတာပေါ့ 😏",
+                gif: "https://giphy.com", // ခေါင်းညိတ်စူးစမ်းသည့်ပုံ
+                btnText: "အင်း သိချင်တယ်"
+            },
+            7: {
+                question: "မပြောပြဘူး ဟဲဟဲ 😝",
+                gif: "https://giphy.com", // ပြောင်ပြနေသည့်ပုံ
+                btnText: "ဟာ ဗျာ"
+            },
+            8: {
+                question: "စတာပါ ဒီတစ်ခါပဲထပ်နှိပ် 😁",
+                gif: "https://giphy.com", // ရယ်မောနေသည့်ပုံ
+                btnText: "နောက်ဆုံးပဲနော်"
+            }
+        };
+
+        function nextStep() {
+            currentStep++;
+            
+            if (steps[currentStep]) {
+                document.getElementById('question').innerText = steps[currentStep].question;
+                document.getElementById('gif').src = steps[currentStep].gif;
+                document.getElementById('nextBtn').innerText = steps[currentStep].btnText;
+            } else {
+                // နောက်ဆုံးအဆင့် - မွေးနေ့ဆုတောင်းနှင့် ကိတ်မုန့်ပုံ
+                document.getElementById('gif').src = "https://giphy.com";
+                document.getElementById('gif').style.width = "160px";
+                document.getElementById('gif').style.height = "160px";
+                
+                document.getElementById('question').innerHTML = `
+                    <div class="wish-text">
+                        <span class="wish-title">🎂 Happy Birthday!</span>
+                        <center><strong style="font-size: 1.25rem; color: #6c5ce7;">ကိုအောင်ကျော်လင်း</strong></center><br>
+                        ကိုကြီးရဲ့ မွေးနေ့ပွဲလေး မကျင်းပပေးလိုက်ရပေမဲ့ ဒီစာသားလေးက ကျွန်မရဲ့ အကိုတော်အတွက် ခွန်အားဖြစ်ဖို့ ရည်ရွယ်ပါတယ်။<br><br>
+                        စိတ်ဓာတ်တွေလည်း မကျပါနဲ့၊ နှမတော်လည်း ရှိပါတယ်။ အိမ်အတွက်ရော ဘဝအတွက်ပါ အတူတူ ကြိုးစားရုန်းကန်ကြတာပေါ့။ အခက်အခဲရှိလာရင် တစ်ယောက်တည်း ရင်ဆိုင်မဖြေရှင်းပါနဲ့၊ စိတ်ပင်ပန်းလာရင် ပြောပြပါ။ တစ်ယောက်နဲ့တစ်ယောက် အားကိုးရာ မောင်နှမတွေပဲလေ။<br><br>
+                        အခုချိန်ကစလို့ စိတ်ချမ်းသာ၊ ကိုယ်ကျန်းမာပြီး လိုအင်ဆန္ဒများ ပြည့်ဝပါစေ။ (ဟဲဟဲ... ပြီးတော့ ကောင်မလေး ချောချောလေးလည်း အမြန်ဆုံး ရပါစေနော်!) ❤️🥳
+                    </div>
+                `;
+                document.getElementById('buttons').style.display = 'none';
+                startHearts();
+            }
+        }
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = ['💙','✨','🎈','🌸','⭐','🎉','❤️'][Math.floor(Math.random() * 7)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 5000);
+            }, 250);
+        }
+    </script>
+</body>
+  </html>
+  
